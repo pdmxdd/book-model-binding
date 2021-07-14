@@ -67,6 +67,17 @@ public class BookController {
         return "filterBooks";
     }
 
+    @GetMapping(value = "/isbn/{isbn}")
+    @ResponseBody
+    public Book getBookByISBN(@PathVariable String isbn) {
+        for(Book book : books) {
+            if(book.getIsbn().equals(isbn)) {
+                return book;
+            }
+        }
+        return null;
+    }
+
     // a helper method that adds a new book to our static books property
     public static void addBook(Book book) {
         books.add(book);
