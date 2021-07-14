@@ -52,13 +52,7 @@ public class BookController {
     // GET /book/title/titleName -> Returns a JSON List of all the books matching the path variable titleName
     @GetMapping(value = "/title/{titleName}")
     public String getBooksByTitle(@PathVariable String titleName, Model model) {
-        ArrayList<Book> matchingBooks = new ArrayList<>();
-        for(Book book : BookRepository.getAllBooks()) {
-            if(book.getTitle().equals(titleName)) {
-                matchingBooks.add(book);
-            }
-        }
-        model.addAttribute("books", matchingBooks);
+        model.addAttribute("books", BookRepository.booksMatchingTitle(titleName));
         return "filterBooks";
     }
 

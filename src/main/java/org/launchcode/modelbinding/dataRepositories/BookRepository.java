@@ -28,4 +28,15 @@ public class BookRepository {
         return matchingBooks;
     }
 
+    // return all books that match a specific title
+    public static ArrayList<Book> booksMatchingTitle(String titleName) {
+        ArrayList<Book> matchingBooks = new ArrayList<>();
+        for(Book book : books) {
+            if(book.getTitle().equals(titleName)) {
+                matchingBooks.add(book);
+            }
+        }
+        return matchingBooks;
+    }
+
 }
