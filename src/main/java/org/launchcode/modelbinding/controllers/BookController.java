@@ -1,21 +1,14 @@
 package org.launchcode.modelbinding.controllers;
 
-import com.fasterxml.jackson.databind.deser.DataFormatReaders;
 import org.launchcode.modelbinding.dataRepositories.BookRepository;
 import org.launchcode.modelbinding.models.Book;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 @Controller
 @RequestMapping(value = "/book")
 public class BookController {
-
-    // this is the container holding all of the books
-//    public static ArrayList<Book> books = new ArrayList<>();
 
     // GET /book -> returns a JSON List of all the books
     @GetMapping
@@ -34,10 +27,6 @@ public class BookController {
     // POST /book/new?title=It,author=King,isbn=8093qhf
     @PostMapping(value = "/new")
     public String addBook(@ModelAttribute Book newBook, Model model) {
-//        HashMap<String, String> newBook = new HashMap<>();
-//        newBook.put("title", title);
-//        newBook.put("author", author);
-//        newBook.put("ISBN", isbn);
         BookRepository.add(newBook);
         model.addAttribute("bookName", newBook.getTitle());
         return "bookAdded";
@@ -63,8 +52,4 @@ public class BookController {
         return BookRepository.bookMatchingISBN(isbn);
     }
 
-    // a helper method that adds a new book to our static books property
-//    public static void addBook(Book book) {
-//        books.add(book);
-//    }
 }
