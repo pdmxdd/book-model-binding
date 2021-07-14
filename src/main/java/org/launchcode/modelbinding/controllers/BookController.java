@@ -1,5 +1,6 @@
 package org.launchcode.modelbinding.controllers;
 
+import org.launchcode.modelbinding.dataRepositories.BookRepository;
 import org.launchcode.modelbinding.models.Book;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,12 +14,12 @@ import java.util.HashMap;
 public class BookController {
 
     // this is the container holding all of the books
-    public static ArrayList<Book> books = new ArrayList<>();
+//    public static ArrayList<Book> books = new ArrayList<>();
 
     // GET /book -> returns a JSON List of all the books
     @GetMapping
     public String getBooks(Model model) {
-        model.addAttribute("books", books);
+        model.addAttribute("books", BookRepository.books);
         return "bookIndex";
     }
 
@@ -36,7 +37,7 @@ public class BookController {
 //        newBook.put("title", title);
 //        newBook.put("author", author);
 //        newBook.put("ISBN", isbn);
-        addBook(newBook);
+        BookRepository.add(newBook);
         model.addAttribute("bookName", newBook.getTitle());
         return "bookAdded";
     }
@@ -45,7 +46,7 @@ public class BookController {
     @GetMapping(value = "/author/{authorName}")
     public String getBooksByAuthor(@PathVariable String authorName, Model model) {
         ArrayList<Book> matchingBooks = new ArrayList<>();
-        for(Book book : books) {
+        for(Book book : BookRepository.books) {
             if(book.getAuthor().equals(authorName)) {
                 matchingBooks.add(book);
             }
@@ -58,7 +59,7 @@ public class BookController {
     @GetMapping(value = "/title/{titleName}")
     public String getBooksByTitle(@PathVariable String titleName, Model model) {
         ArrayList<Book> matchingBooks = new ArrayList<>();
-        for(Book book : books) {
+        for(Book book : BookRepository.books) {
             if(book.getTitle().equals(titleName)) {
                 matchingBooks.add(book);
             }
@@ -70,7 +71,7 @@ public class BookController {
     @GetMapping(value = "/isbn/{isbn}")
     @ResponseBody
     public Book getBookByISBN(@PathVariable String isbn) {
-        for(Book book : books) {
+        for(Book book : BookRepository.books) {
             if(book.getIsbn().equals(isbn)) {
                 return book;
             }
@@ -79,7 +80,7 @@ public class BookController {
     }
 
     // a helper method that adds a new book to our static books property
-    public static void addBook(Book book) {
-        books.add(book);
-    }
+//    public static void addBook(Book book) {
+//        books.add(book);
+//    }
 }
