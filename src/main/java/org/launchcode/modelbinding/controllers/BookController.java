@@ -1,5 +1,6 @@
 package org.launchcode.modelbinding.controllers;
 
+import com.fasterxml.jackson.databind.deser.DataFormatReaders;
 import org.launchcode.modelbinding.dataRepositories.BookRepository;
 import org.launchcode.modelbinding.models.Book;
 import org.springframework.stereotype.Controller;
@@ -59,12 +60,7 @@ public class BookController {
     @GetMapping(value = "/isbn/{isbn}")
     @ResponseBody
     public Book getBookByISBN(@PathVariable String isbn) {
-        for(Book book : BookRepository.getAllBooks()) {
-            if(book.getIsbn().equals(isbn)) {
-                return book;
-            }
-        }
-        return null;
+        return BookRepository.bookMatchingISBN(isbn);
     }
 
     // a helper method that adds a new book to our static books property

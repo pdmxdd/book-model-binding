@@ -39,4 +39,14 @@ public class BookRepository {
         return matchingBooks;
     }
 
+    // return the book matching a specific ISBN
+    public static Book bookMatchingISBN(String isbn) {
+        for(Book book : books) {
+            if(book.getIsbn().equals(isbn)) {
+                return book;
+            }
+        }
+        return null;
+    }
+
 }
