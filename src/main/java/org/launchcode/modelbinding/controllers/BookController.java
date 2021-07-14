@@ -19,7 +19,7 @@ public class BookController {
     // GET /book -> returns a JSON List of all the books
     @GetMapping
     public String getBooks(Model model) {
-        model.addAttribute("books", BookRepository.books);
+        model.addAttribute("books", BookRepository.getAllBooks());
         return "bookIndex";
     }
 
@@ -46,7 +46,7 @@ public class BookController {
     @GetMapping(value = "/author/{authorName}")
     public String getBooksByAuthor(@PathVariable String authorName, Model model) {
         ArrayList<Book> matchingBooks = new ArrayList<>();
-        for(Book book : BookRepository.books) {
+        for(Book book : BookRepository.getAllBooks()) {
             if(book.getAuthor().equals(authorName)) {
                 matchingBooks.add(book);
             }
@@ -59,7 +59,7 @@ public class BookController {
     @GetMapping(value = "/title/{titleName}")
     public String getBooksByTitle(@PathVariable String titleName, Model model) {
         ArrayList<Book> matchingBooks = new ArrayList<>();
-        for(Book book : BookRepository.books) {
+        for(Book book : BookRepository.getAllBooks()) {
             if(book.getTitle().equals(titleName)) {
                 matchingBooks.add(book);
             }
@@ -71,7 +71,7 @@ public class BookController {
     @GetMapping(value = "/isbn/{isbn}")
     @ResponseBody
     public Book getBookByISBN(@PathVariable String isbn) {
-        for(Book book : BookRepository.books) {
+        for(Book book : BookRepository.getAllBooks()) {
             if(book.getIsbn().equals(isbn)) {
                 return book;
             }
