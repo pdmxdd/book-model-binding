@@ -17,4 +17,15 @@ public class BookRepository {
         books.add(newBook);
     }
 
+    // return all books that match a specific author
+    public static ArrayList<Book> booksMatchingAuthor(String authorName) {
+        ArrayList<Book> matchingBooks = new ArrayList<>();
+        for(Book book : books) {
+            if(book.getAuthor().equals(authorName)) {
+                matchingBooks.add(book);
+            }
+        }
+        return matchingBooks;
+    }
+
 }

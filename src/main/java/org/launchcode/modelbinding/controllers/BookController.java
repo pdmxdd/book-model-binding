@@ -45,13 +45,7 @@ public class BookController {
     // GET /book/author/authorName -> returns a JSON List of all the books matching the path variable authorName
     @GetMapping(value = "/author/{authorName}")
     public String getBooksByAuthor(@PathVariable String authorName, Model model) {
-        ArrayList<Book> matchingBooks = new ArrayList<>();
-        for(Book book : BookRepository.getAllBooks()) {
-            if(book.getAuthor().equals(authorName)) {
-                matchingBooks.add(book);
-            }
-        }
-        model.addAttribute("books", matchingBooks);
+        model.addAttribute("books", BookRepository.booksMatchingAuthor(authorName));
         return "filterBooks";
     }
 
